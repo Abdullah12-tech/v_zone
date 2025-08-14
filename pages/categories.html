@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Zone || Entertainment | Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="logo/WhatsApp Image 2024-08-12 at 8.43.16 PM.jpeg" type="images/x-icon">
+    <style>
+        .dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important;
+        }
+        .dark-mode .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+        .dark-mode .border-gray-200 {
+            border-color: #4a5568 !important;
+        }
+        .dark-mode .notification {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-color: #4a5568;
+        }
+        .dark-btn span {
+            left: 2px;
+            background: #fff;
+        }
+        .dark-btn.active span {
+            left: 22px;
+            background: #1a202c;
+        }
+        .notification, .settings-menu {
+            transition: all 0.3s ease;
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+                top: 0;
+                left: 0;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 40;
+                display: none;
+            }
+            .menu-overlay.active {
+                display: block;
+            }
+        }
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between p-4 bg-white shadow-md sticky top-0 z-30">
+        <div class="flex items-center space-x-4">
+            <button class="md:hidden menu-toggle">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <img src="logo/WhatsApp Image 2024-08-12 at 8.43.16 PM.jpeg" class="h-10 rounded-full">
+            <span class="font-bold text-xl hidden md:block">V-Zone</span>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-4">
+            <div class="relative flex items-center">
+                <input type="search" placeholder="Search categories..." 
+                    class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="absolute right-3 text-gray-500">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative notification-toggle">
+                <i class="fas fa-bell text-xl"></i>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
+            </button>
+            <button class="profile-toggle">
+                <img src="images/user.jpg" class="h-8 w-8 rounded-full object-cover">
+            </button>
+        </div>
+    </nav>
+
+    <!-- Notification Dropdown -->
+    <div class="notification absolute right-4 top-16 w-72 bg-white rounded-lg shadow-xl border border-gray-200 hidden z-40">
+        <div class="p-3">
+            <div class="flex items-center justify-between p-2">
+                <h3 class="font-bold">Notifications</h3>
+                <span class="text-sm text-blue-500">Mark all as read</span>
+            </div>
+            <hr class="my-1">
+            
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                <div class="relative mr-2">
+                    <img src="upload.png" class="h-8 w-8 rounded-full">
+                    <img src="images/ballerina.jpeg" class="h-4 w-4 rounded-full absolute -bottom-1 -right-1 border border-white">
+                </div>
+                <p class="text-sm flex-1">New movie uploaded: Ballerina</p>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            </a>
+            
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="upload.png" class="h-8 w-8 rounded-full mr-2">
+                <p class="text-sm flex-1">Subscription renewal reminder</p>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="settings-menu absolute right-4 top-16 w-72 bg-white rounded-lg shadow-xl border border-gray-200 hidden z-40">
+        <div class="p-4">
+            <div class="flex items-center mb-4">
+                <img src="images/come2.jpg" class="h-10 w-10 rounded-full mr-3">
+                <div>
+                    <p class="font-semibold">Donatus Blessing</p>
+                    <a href="#" class="text-sm text-blue-500">See profile</a>
+                </div>
+            </div>
+            
+            <hr class="my-2">
+            
+            <div class="flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer">
+                <div class="flex items-center">
+                    <i class="fas fa-cog text-gray-500 mr-3"></i>
+                    <span>Settings & Privacy</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            </div>
+            
+            <div class="flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer">
+                <div class="flex items-center">
+                    <i class="fas fa-question-circle text-gray-500 mr-3"></i>
+                    <span>Help & Support</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            </div>
+            
+            <div class="flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer">
+                <div class="flex items-center">
+                    <i class="fas fa-sign-out-alt text-gray-500 mr-3"></i>
+                    <span>Logout</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            </div>
+            
+            <div class="mt-3">
+                <div class="flex items-center justify-between p-2">
+                    <span>Dark Mode</span>
+                    <div class="dark-btn w-12 h-6 bg-gray-300 rounded-full relative cursor-pointer">
+                        <span class="absolute top-1 w-4 h-4 rounded-full transition-all"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Overlay (Mobile) -->
+    <div class="menu-overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar bg-white w-16 md:w-20 h-screen fixed shadow-md pt-4">
+        <div class="flex flex-col items-center space-y-6">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full">
+                <i class="fas fa-play text-xl"></i>
+                <span class="text-xs mt-1">Watch</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full">
+                <i class="fas fa-bell text-xl"></i>
+                <span class="text-xs mt-1">Subscription</span>
+            </a>
+            
+            <a href="categories.html" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full bg-blue-100">
+                <i class="fas fa-th-large text-xl text-blue-500"></i>
+                <span class="text-xs mt-1 text-blue-500">Categories</span>
+            </a>
+            
+            <a href="#" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full">
+                <i class="fas fa-history text-xl"></i>
+                <span class="text-xs mt-1">History</span>
+            </a>
+            
+            <a href="download.html" class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 w-full">
+                <i class="fas fa-download text-xl"></i>
+                <span class="text-xs mt-1">Download</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ml-16 md:ml-20 p-4">
+        <!-- Categories Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Movies Categories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Category Card 1 -->
+                <a href="action" class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-blue-50 border border-gray-100">
+                    <i class="fas fa-explosion text-3xl text-red-500 mb-2"></i>
+                    <h3 class="font-semibold">Action</h3>
+                </a>
+                
+                <!-- Category Card 2 -->
+                <a href="romatic" class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-pink-50 border border-gray-100">
+                    <i class="fas fa-heart text-3xl text-pink-500 mb-2"></i>
+                    <h3 class="font-semibold">Romantic</h3>
+                </a>
+                
+                <!-- Category Card 3 -->
+                <a href="comdey.html" class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-yellow-50 border border-gray-100">
+                    <i class="fas fa-laugh-squint text-3xl text-yellow-500 mb-2"></i>
+                    <h3 class="font-semibold">Comedy</h3>
+                </a>
+                
+                <!-- Category Card 4 -->
+                <a href="Animation" class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-purple-50 border border-gray-100">
+                    <i class="fas fa-film text-3xl text-purple-500 mb-2"></i>
+                    <h3 class="font-semibold">Animation</h3>
+                </a>
+                
+                <!-- Category Card 5 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-blue-50 border border-gray-100">
+                    <i class="fas fa-music text-3xl text-blue-500 mb-2"></i>
+                    <h3 class="font-semibold">Music Video</h3>
+                </div>
+                
+                <!-- Category Card 6 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-green-50 border border-gray-100">
+                    <i class="fas fa-church text-3xl text-green-500 mb-2"></i>
+                    <h3 class="font-semibold">Dove TV</h3>
+                </div>
+                
+                <!-- Category Card 7 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-indigo-50 border border-gray-100">
+                    <i class="fas fa-rocket text-3xl text-indigo-500 mb-2"></i>
+                    <h3 class="font-semibold">Science Fiction</h3>
+                </div>
+                
+                <!-- Category Card 8 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-gray-100 border border-gray-100">
+                    <i class="fas fa-ghost text-3xl text-gray-700 mb-2"></i>
+                    <h3 class="font-semibold">Horror</h3>
+                </div>
+                
+                <!-- Category Card 9 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-green-50 border border-gray-100">
+                    <i class="fas fa-mountain text-3xl text-green-600 mb-2"></i>
+                    <h3 class="font-semibold">Adventure</h3>
+                </div>
+                
+                <!-- Category Card 10 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-red-50 border border-gray-100">
+                    <i class="fas fa-tv text-3xl text-red-400 mb-2"></i>
+                    <h3 class="font-semibold">Series</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- More Categories -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">More Categories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Category Card 11 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-purple-50 border border-gray-100">
+                    <i class="fas fa-search text-3xl text-purple-600 mb-2"></i>
+                    <h3 class="font-semibold">Mystery</h3>
+                </div>
+                
+                <!-- Category Card 12 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-blue-50 border border-gray-100">
+                    <i class="fas fa-camera text-3xl text-blue-400 mb-2"></i>
+                    <h3 class="font-semibold">Documentary</h3>
+                </div>
+                
+                <!-- Category Card 13 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-yellow-50 border border-gray-100">
+                    <i class="fas fa-running text-3xl text-yellow-600 mb-2"></i>
+                    <h3 class="font-semibold">Action-Adventure</h3>
+                </div>
+                
+                <!-- Category Card 14 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-red-50 border border-gray-100">
+                    <i class="fas fa-crown text-3xl text-red-500 mb-2"></i>
+                    <h3 class="font-semibold">Epic</h3>
+                </div>
+                
+                <!-- Category Card 15 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-gray-100 border border-gray-100">
+                    <i class="fas fa-handcuffs text-3xl text-gray-600 mb-2"></i>
+                    <h3 class="font-semibold">Crime Films</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sports Categories -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Sports Activities</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Sport Card 1 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-red-50 border border-gray-100">
+                    <i class="fas fa-hockey-puck text-3xl text-red-500 mb-2"></i>
+                    <h3 class="font-semibold">Hockey</h3>
+                </div>
+                
+                <!-- Sport Card 2 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-green-50 border border-gray-100">
+                    <i class="fas fa-baseball-ball text-3xl text-green-500 mb-2"></i>
+                    <h3 class="font-semibold">Baseball</h3>
+                </div>
+                
+                <!-- Sport Card 3 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-orange-50 border border-gray-100">
+                    <i class="fas fa-basketball-ball text-3xl text-orange-500 mb-2"></i>
+                    <h3 class="font-semibold">Basketball</h3>
+                </div>
+                
+                <!-- Sport Card 4 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-blue-50 border border-gray-100">
+                    <i class="fas fa-volleyball-ball text-3xl text-blue-500 mb-2"></i>
+                    <h3 class="font-semibold">Volleyball</h3>
+                </div>
+                
+                <!-- Sport Card 5 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-yellow-50 border border-gray-100">
+                    <i class="fas fa-bicycle text-3xl text-yellow-500 mb-2"></i>
+                    <h3 class="font-semibold">Cycling</h3>
+                </div>
+                
+                <!-- Sport Card 6 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-green-50 border border-gray-100">
+                    <i class="fas fa-golf-ball text-3xl text-green-600 mb-2"></i>
+                    <h3 class="font-semibold">Golf</h3>
+                </div>
+                
+                <!-- Sport Card 7 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-black-50 border border-gray-100">
+                    <i class="fas fa-futbol text-3xl text-black-500 mb-2"></i>
+                    <h3 class="font-semibold">Soccer</h3>
+                </div>
+                
+                <!-- Sport Card 8 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-purple-50 border border-gray-100">
+                    <i class="fas fa-acrobatics text-3xl text-purple-500 mb-2"></i>
+                    <h3 class="font-semibold">Acrobatic</h3>
+                </div>
+                
+                <!-- Sport Card 9 -->
+                <div class="category-card bg-white rounded-lg p-6 text-center shadow-md hover:bg-blue-50 border border-gray-100">
+                    <i class="fas fa-billiard text-3xl text-blue-600 mb-2"></i>
+                    <h3 class="font-semibold">Cue Sport</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Toggle mobile menu
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking overlay
+        document.querySelector('.menu-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+            this.classList.remove('active');
+        });
+
+        // Toggle notification dropdown
+        document.querySelector('.notification-toggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelector('.notification').classList.toggle('hidden');
+            document.querySelector('.settings-menu').classList.add('hidden');
+        });
+
+        // Toggle profile dropdown
+        document.querySelector('.profile-toggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelector('.settings-menu').classList.toggle('hidden');
+            document.querySelector('.notification').classList.add('hidden');
+        });
+
+        // Close dropdowns when clicking elsewhere
+        document.addEventListener('click', function() {
+            document.querySelector('.notification').classList.add('hidden');
+            document.querySelector('.settings-menu').classList.add('hidden');
+        });
+
+        // Dark mode toggle
+        const darkBtn = document.querySelector('.dark-btn');
+        darkBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Check for saved dark mode preference
+        if(localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.dark-btn').classList.add('active');
+        }
+
+        // Prevent dropdowns from closing when clicking inside them
+        document.querySelector('.notification').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.querySelector('.settings-menu').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>
